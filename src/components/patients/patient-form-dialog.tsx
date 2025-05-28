@@ -1,7 +1,8 @@
+
 "use client";
 
 import React, { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState } from "react"; // Changed from "react-dom" and useFormState
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -50,7 +51,7 @@ export function PatientFormDialog({ patient, children }: PatientFormDialogProps)
   const { toast } = useToast();
   
   const action = patient ? updatePatientAction.bind(null, patient.id) : createPatientAction;
-  const [formState, formAction] = useFormState(action, initialFormState);
+  const [formState, formAction] = useActionState(action, initialFormState); // Changed useFormState to useActionState
 
   const form = useForm<PatientFormData>({
     resolver: zodResolver(patientFormSchema),
